@@ -20,6 +20,12 @@ const app = (firebaseApp as any).getApps().length > 0
   ? (firebaseApp as any).getApp()
   : (firebaseApp as any).initializeApp(firebaseConfig);
 
+// Initialize Auth with Persistence
 export const auth = getAuth(app);
+import { setPersistence, browserLocalPersistence } from 'firebase/auth';
+setPersistence(auth, browserLocalPersistence).catch((error) => {
+  console.error("Firebase Persistence Error:", error);
+});
+
 export const db = getFirestore(app);
 export const storage = getStorage(app);
